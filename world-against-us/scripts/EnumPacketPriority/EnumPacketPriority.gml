@@ -1,7 +1,0 @@
-enum PACKET_PRIORITY
-{
-  CRITICAL,
-  HIGH,
-  DEFAULT,
-  LOW,
-}

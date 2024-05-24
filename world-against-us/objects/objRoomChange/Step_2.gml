@@ -1,2 +1,0 @@
-// ROOM CHANGE QUEUE WILL TRIGGER AT THE END OF THE FRAME STEPS
-roomChangeHandler.CheckRoomGotoQueueAndProceed();

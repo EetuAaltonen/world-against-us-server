@@ -1,1 +1,0 @@
-playerDataHandler = new PlayerDataHandler();

@@ -1,2 +1,0 @@
-hudElementHealth.Update();
-hudElementAmmo.Update();

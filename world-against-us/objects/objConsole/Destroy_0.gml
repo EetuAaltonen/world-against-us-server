@@ -1,2 +1,0 @@
-consoleHandler.OnDestroy();
-consoleHandler = undefined;

@@ -1,1 +1,0 @@
-questHandler.OnDestroy();

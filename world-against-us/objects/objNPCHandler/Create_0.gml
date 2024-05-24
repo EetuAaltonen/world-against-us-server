@@ -1,1 +1,0 @@
-npcHandler = new NPCHandler();

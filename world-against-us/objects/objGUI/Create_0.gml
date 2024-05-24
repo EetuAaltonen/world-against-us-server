@@ -1,1 +1,0 @@
-guiStateHandler = new GUIStateHandler();

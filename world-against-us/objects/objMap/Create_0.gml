@@ -1,1 +1,0 @@
-mapDataHandler = new MapDataHandler();

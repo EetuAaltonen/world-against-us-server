@@ -1,1 +1,0 @@
-highlightHandler = new HighlightHandler();

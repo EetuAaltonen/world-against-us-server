@@ -1,1 +1,0 @@
-roomFadeAlpha = Approach(roomFadeAlpha, 0, roomFadeAlphaStep);

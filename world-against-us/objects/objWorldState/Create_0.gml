@@ -1,1 +1,0 @@
-worldStateHandler = new WorldStateHandler();

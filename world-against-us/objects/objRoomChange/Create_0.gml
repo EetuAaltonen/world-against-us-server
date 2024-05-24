@@ -1,1 +1,0 @@
-roomChangeHandler = new RoomChangeHandler();

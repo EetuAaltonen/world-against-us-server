@@ -1,2 +1,0 @@
-mapDataHandler.ClearStaticMapData();
-mapDataHandler.ClearDynamicMapData();

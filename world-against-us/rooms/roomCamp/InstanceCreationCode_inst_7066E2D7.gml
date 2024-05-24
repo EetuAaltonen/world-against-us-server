@@ -1,1 +1,0 @@
-containerId = CAMP_STORAGE_CONTAINER_ID;

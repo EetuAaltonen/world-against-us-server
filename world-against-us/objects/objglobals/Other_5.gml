@@ -1,2 +1,0 @@
-// RESET INSTANCE GLOBAL VARIABLES
-resetDynamicVariables();

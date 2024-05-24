@@ -1,2 +1,0 @@
-networkHandler.OnDestroy();
-networkHandler = undefined;
