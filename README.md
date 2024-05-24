@@ -1,22 +1,20 @@
-# world-against-us
+# NodeJS Server
 
-Gamemaker Studio 2 and Node.js server integration for real-time 2D multiplayer game called 'World Against Us'.
+<br>
 
-## Singleplayer
+Create .env config file with parameters:
+```
+ADDRESS="127.0.0.1"
+PORT=54544
+```
+<br>
 
-The player is living in a post-apocalyptic world trying to survive and help people with their quests in local area. Goal to build up a growing community and save as many poor soul as possible.
 
-Core features:
-
-- Inventory
-- World exploration
-- Scavenging
-- Questing
-
-## Multiplayer
-
-Other players can join to the multiplayer and team up with others and share the journey in this unfair and chaotic world.
-
-<br><br><br>
-
-# _Work heavily in progress..._
+Run server with
+```
+node run start
+```
+or
+```
+node run dev
+```
