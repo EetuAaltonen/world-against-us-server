@@ -76,19 +76,22 @@ export default class InstanceHandler {
   }
 
   /**
-   * Function creates default Camp instance
+   * Creates default Camp instance
    * with the default instance ID and storage container
    * @return {bool} Instance is successfully created
    */
   createDefaultCampInstance() {
-    let isInstanceCreated = true;
-    const campInstance = new Instance(
-      this.campId,
-      ROOM_INDEX.ROOM_CAMP,
-      this.networkHandler
-    );
-    campInstance.containerHandler.addContainer(CAMP_STORAGE_CONTAINER_ID);
-    this.instances[this.campId] = campInstance;
+    let isInstanceCreated = false;
+    if (this.getInstance(this.campId) === undefined) {
+      const campInstance = new Instance(
+        this.campId,
+        ROOM_INDEX.ROOM_CAMP,
+        this.networkHandler
+      );
+      campInstance.containerHandler.addContainer(CAMP_STORAGE_CONTAINER_ID);
+      this.instances[this.campId] = campInstance;
+      isInstanceCreated = true;
+    }
     return isInstanceCreated;
   }
 
