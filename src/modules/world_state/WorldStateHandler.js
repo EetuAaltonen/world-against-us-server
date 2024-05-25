@@ -135,6 +135,10 @@ export default class WorldStateHandler {
     return isSaveLoaded;
   }
 
+  /**
+   * Rolls a new prevailing weather condition
+   * @return {bool} Weather rolled successfully
+   */
   rollWeather() {
     let isWeatherRolled = false;
     const keys = Object.keys(WEATHER_CONDITION);

@@ -47,6 +47,11 @@ export default class Instance {
     };
   }
 
+  /**
+   * Called on every server tick
+   * @param {number} passedTickTime
+   * @return {bool} Updated
+   */
   update(passedTickTime) {
     let isUpdated = true;
     if (this.patrolRoute !== undefined) {
@@ -63,6 +68,13 @@ export default class Instance {
     );
   }
 
+  /**
+   * Adds a player into the instance,
+   * and performs owner client setting
+   * @param {string} clientId
+   * @param {Player} player
+   * @return {bool} Player added successfully
+   */
   addPlayer(clientId, player) {
     let isPlayerAdded = false;
     // Check for existing player
@@ -293,6 +305,10 @@ export default class Instance {
     return isPatrolRemoved;
   }
 
+  /**
+   * Sets new owner client
+   * @return {void}
+   */
   setOwner(clientId) {
     this.ownerClient = clientId;
     // If owner leaves, run clean up
@@ -301,6 +317,10 @@ export default class Instance {
     }
   }
 
+  /**
+   * Resets the owner client
+   * @return {bool} Owner successfully reset
+   */
   resetOwner() {
     let isOwnerReset = false;
     if (this.getPlayerCount() > 0) {

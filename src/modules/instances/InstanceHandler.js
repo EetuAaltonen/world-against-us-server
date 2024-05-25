@@ -53,7 +53,6 @@ export default class InstanceHandler {
       this.scoutStreamSnapshotTimer -= passedTickTime;
       if (this.scoutStreamSnapshotTimer <= 0) {
         this.scoutStreamSnapshotTimer += this.scoutStreamSnapshotInterval;
-
         // Send operations scout stream snapshot
         const scoutedInstance = this.getInstance(
           this.activeOperationsScoutStream.instanceId
@@ -107,10 +106,10 @@ export default class InstanceHandler {
   }
 
   /**
-   * Function creates a new instance from a valid given room index,
-   * and adds it to instances collection
+   * Creates a new instance from a given room index,
+   * validates the room index, and adds the created instance to registry
    * @param {string} roomIndex
-   * @return {number} The created instance ID
+   * @return {number} Created instance ID
    */
   createInstance(roomIndex) {
     let createdInstanceId;
@@ -135,6 +134,13 @@ export default class InstanceHandler {
     return Object.keys(this.instances);
   }
 
+  /**
+   * Fetches a list of available instance
+   * based on specified flags
+   * @param {boolean} excludeCamp
+   * @param {boolean} onlyRootHierarchy
+   * @return {Array} Available instances
+   */
   getAvailableInstances(excludeCamp, onlyRootHierarchy) {
     let availableInstances = [];
     let instanceIds = this.getInstanceIds();
@@ -167,6 +173,15 @@ export default class InstanceHandler {
     return Object.values(ROOM_INDEX).includes(roomIndex);
   }
 
+  /**
+   * Fast travels a player from source instance to destination,
+   * and validates provided fast travel details
+   * @param {string} clientId
+   * @param {string} sourceInstanceId
+   * @param {string} destinationRoomIndex
+   * @param {string} destinationInstanceId
+   * @return {number} New instance ID
+   */
   fastTravelPlayer(
     clientId,
     sourceInstanceId,
@@ -293,10 +308,18 @@ export default class InstanceHandler {
     }
   }
 
+  /**
+   * Removes a player from a instance (specified or not)
+   * and checks for instance release and changed owner client
+   * @param {string} clientId
+   * @param {string} instanceId
+   * @param {string} parentInstanceId
+   * @return {bool} Player successfully removed
+   */
   removePlayerFromInstance(clientId, instanceId = undefined) {
     let isPlayerRemoved = false;
     let instance = undefined;
-    // Get instance by client ID
+    // Find the player within the instances if current location is unknown
     if (instanceId === undefined) {
       const instanceIds = this.getInstanceIds();
       const instanceCount = instanceIds.length;
@@ -326,7 +349,6 @@ export default class InstanceHandler {
                     instance.instanceId,
                     clientId
                   );
-
                 const broadcastNetworkPacketHeader = new NetworkPacketHeader(
                   MESSAGE_TYPE.SYNC_INSTANCE_OWNER,
                   clientId
@@ -342,7 +364,6 @@ export default class InstanceHandler {
                 );
               }
             } else {
-              // TODO: Proper error handling
               ConsoleHandler.Log(
                 `Failed to reset owner for an instance with ID: ${instanceId}`
               );
@@ -488,6 +509,11 @@ export default class InstanceHandler {
     }
   }
 
+  /**
+   * Deletes an instance and performs clean-up
+   * @param {string} instanceId
+   * @return {bool} Instance deleted successfully
+   */
   deleteInstance(instanceId) {
     let isInstanceDeleted = false;
     var instance = this.getInstance(instanceId);

@@ -56,6 +56,10 @@ export default class NetworkHandler {
     this.initWorldState();
   }
 
+  /**
+   * Initializes the world state by loading a save file
+   * @return {bool} World state initialized successfully
+   */
   initWorldState() {
     let isWorldStateInitialized = false;
     if (this.worldStateHandler.loadSave()) {
