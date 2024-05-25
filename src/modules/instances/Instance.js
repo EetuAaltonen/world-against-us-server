@@ -8,7 +8,7 @@ import Patrol from "../patrols/Patrol.js";
 import PatrolState from "../patrols/PatrolState.js";
 import InstanceSnapshot from "./InstanceSnapshot.js";
 
-import GetRandomInt from "../math/GetRandomInt.js";
+import GetRandomIntFromRange from "../math/GetRandomIntFromRange.js";
 import FormatHashMapToJSONStructArray from "../formatting/FormatHashMapToJSONStructArray.js";
 
 const UNDEFINED_UUID = "nuuuuuuu-uuuu-uuuu-uuuu-ullundefined";
