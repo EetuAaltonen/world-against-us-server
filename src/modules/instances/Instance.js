@@ -1,5 +1,6 @@
 import ROOM_INDEX from "./RoomIndex.js";
 import AI_STATE_BANDIT from "../patrols/AIStateBandit.js";
+import PATROL_ROUTES from "../patrols/PatrolRoutes.js";
 
 import ConsoleHandler from "../console/ConsoleHandler.js";
 import ContainerHandler from "../containers/ContainerHandler.js";
@@ -11,12 +12,7 @@ import GetRandomInt from "../math/GetRandomInt.js";
 import FormatHashMapToJSONStructArray from "../formatting/FormatHashMapToJSONStructArray.js";
 
 const UNDEFINED_UUID = "nuuuuuuu-uuuu-uuuu-uuuu-ullundefined";
-
-const PATROL_ROUTE_TIME_TOWN = 255000; // == ~4min 15sec
-const PATROL_ROUTE_TIME_FOREST = 83000; // == ~1min 23sec
 const MAX_PATROL_ID = 100;
-const MIN_PATROL_COUNT = 1;
-const MAX_PATROL_COUNT = 2;
 
 export default class Instance {
   constructor(instanceId, roomIndex, networkHandler) {
@@ -27,6 +23,7 @@ export default class Instance {
     this.ownerClient = undefined;
     this.localPlayers = {};
     this.localPatrols = {};
+    this.patrolRoute = PATROL_ROUTES[roomIndex];
     this.containerHandler = new ContainerHandler(this.networkHandler);
 
     this.availablePatrolId = 0;
@@ -52,9 +49,7 @@ export default class Instance {
 
   update(passedTickTime) {
     let isUpdated = true;
-    if (this.roomIndex === ROOM_INDEX.ROOM_CAMP) {
-      // TODO: Update the Camp
-    } else {
+    if (this.patrolRoute !== undefined) {
       isUpdated = this.updateLocalPatrols(passedTickTime);
     }
     return isUpdated;
@@ -122,38 +117,27 @@ export default class Instance {
     return Object.keys(this.localPlayers).length;
   }
 
-  addPatrol() {
-    let isPatrolAdded = false;
-    switch (this.roomIndex) {
+  addPatrol(patrol) {
+    let isPatrolAdded = true;
+    this.localPatrols[this.availablePatrolId] = patrol;
+
+    switch (this.patrolRoute.roomIndex) {
       case ROOM_INDEX.ROOM_TOWN:
         {
-          const newPatrol = new Patrol(
-            this.availablePatrolId,
-            this.instanceId,
-            PATROL_ROUTE_TIME_TOWN
-          );
-          this.localPatrols[this.availablePatrolId] = newPatrol;
           ConsoleHandler.Log(
-            `Patrol with ID ${newPatrol.patrolId} started traveling towards Town, remaining ${newPatrol.travelTime}`
+            `Patrol with ID ${patrol.patrolId} started traveling towards Town, remaining ${patrol.travelTime}`
           );
-          isPatrolAdded = true;
         }
         break;
       case ROOM_INDEX.ROOM_FOREST:
         {
-          const newPatrol = new Patrol(
-            this.availablePatrolId,
-            this.instanceId,
-            PATROL_ROUTE_TIME_FOREST
-          );
-          this.localPatrols[this.availablePatrolId] = newPatrol;
           ConsoleHandler.Log(
-            `Patrol with ID ${newPatrol.patrolId} started traveling towards Forest, remaining ${newPatrol.travelTime}`
+            `Patrol with ID ${patrol.patrolId} started traveling towards Forest, remaining ${patrol.travelTime}`
           );
-          isPatrolAdded = true;
         }
         break;
     }
+
     if (++this.availablePatrolId >= MAX_PATROL_ID) {
       this.availablePatrolId = 0;
     }
@@ -193,12 +177,22 @@ export default class Instance {
     let isPatrolsUpdated = false;
     const localPatrolIds = this.getAllPatrolIds();
     if (localPatrolIds.length <= 0) {
-      const randomPatrolCount = GetRandomInt(
-        MIN_PATROL_COUNT,
-        MAX_PATROL_COUNT
+      const randomPatrolCount = GetRandomIntFromRange(
+        this.patrolRoute.minPatrolCount,
+        this.patrolRoute.maxPatrolCount
+      );
+      const randomTravelTime = GetRandomIntFromRange(
+        this.patrolRoute.minTravelTime,
+        this.patrolRoute.maxTravelTime
       );
       for (let i = 0; i < randomPatrolCount; i++) {
-        this.addPatrol();
+        const newPatrol = new Patrol(
+          this.availablePatrolId,
+          this.instanceId,
+          this.patrolRoute.routeTime,
+          randomTravelTime
+        );
+        this.addPatrol(newPatrol);
       }
       isPatrolsUpdated = true;
     } else {

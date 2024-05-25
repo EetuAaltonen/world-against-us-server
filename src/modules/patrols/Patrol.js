@@ -1,22 +1,18 @@
 import AI_STATE_BANDIT from "./AIStateBandit.js";
 
-import GetRandomInt from "../math/GetRandomInt.js";
 import Vector2 from "../math/Vector2.js";
 
 const UNDEFINED_UUID = "nuuuuuuu-uuuu-uuuu-uuuu-ullundefined";
-const MIN_TRAVEL_TIME = 4000;
-const MAX_TRAVEL_TIME = 20000;
-const FIXED_POINT_PERCENT_PRECISION = 1000;
 
 export default class Patrol {
-  constructor(patrolId, instanceId, routeTime) {
+  constructor(patrolId, instanceId, routeTime, travelTime) {
     this.patrolId = patrolId;
     this.instanceId = instanceId;
     this.totalRouteTime = routeTime;
     this.routeTime = this.totalRouteTime;
+    this.travelTime = travelTime;
     this.routeProgress = 0;
     this.aiState = AI_STATE_BANDIT.TRAVEL;
-    this.travelTime = GetRandomInt(MIN_TRAVEL_TIME, MAX_TRAVEL_TIME);
     this.position = new Vector2(0, 0);
     this.targetNetworkId = UNDEFINED_UUID;
   }
