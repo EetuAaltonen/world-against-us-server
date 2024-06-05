@@ -1,4 +1,19 @@
-# NodeJS Server
+# World Against Us
+
+## Multiplayer
+
+Core features:
+
+- Dedicated server
+- Multiplayer sessions
+- Server save files
+
+
+## Singleplayer
+
+See [client](https://github.com/EetuAaltonen/world-against-us)
+
+## NodeJS Server Setup
 
 <br>
 
@@ -9,12 +24,20 @@ PORT=54544
 ```
 <br>
 
-
-Run server with
+Install node_modules
 ```
-node run start
+npm install
+```
+
+Navigate to ./src and run server with
+```
+npm run start
 ```
 or
 ```
-node run dev
+npm run dev
 ```
+
+<br>
+
+# _Work heavily in progress..._
