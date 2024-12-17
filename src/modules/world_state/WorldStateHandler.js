@@ -4,7 +4,7 @@ import ConsoleHandler from "../console/ConsoleHandler.js";
 import FileHandler from "../files/FileHandler.js";
 import WorldStateDateTime from "./WorldStateDateTime.js";
 import ParseJSONStructsToArray from "../json/ParseJSONStructsToArray.js";
-import ParseJSONStructToItemReplica from "../items/ParseJSONStructToItemReplica.js";
+import ParseJSONStructToItem from "../items/ParseJSONStructToItem.js";
 
 const SERVER_APPDATA_PATH = `${process.env.LOCALAPPDATA}/world_against_us/server`;
 const SERVER_SAVE_FILE_PATH = `${SERVER_APPDATA_PATH}/worlds`;
@@ -107,7 +107,7 @@ export default class WorldStateHandler {
               const jsonItemArray = jsonStorageInventory["items"] ?? [];
               const parsedItems = ParseJSONStructsToArray(
                 jsonItemArray,
-                ParseJSONStructToItemReplica
+                ParseJSONStructToItem
               );
               if (!campStorageContainer.inventory.addItems(parsedItems)) {
                 isSaveLoaded = false;

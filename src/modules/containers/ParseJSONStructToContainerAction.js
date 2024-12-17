@@ -1,6 +1,6 @@
 import ContainerInventoryActionInfo from "./ContainerInventoryActionInfo.js";
 import ParseJSONStructToGridIndex from "../inventory/ParseJSONStructToGridIndex.js";
-import ParseJSONStructToItemReplica from "../items/ParseJSONStructToItemReplica.js";
+import ParseJSONStructToItem from "../items/ParseJSONStructToItem.js";
 
 export default function (jsonStruct) {
   let parsedActionInfo;
@@ -11,9 +11,7 @@ export default function (jsonStruct) {
     const parsedTargetGridIndex = ParseJSONStructToGridIndex(
       jsonStruct["target_grid_index"] ?? undefined
     );
-    const parsedItem = ParseJSONStructToItemReplica(
-      jsonStruct["item"] ?? undefined
-    );
+    const parsedItem = ParseJSONStructToItem(jsonStruct["item"] ?? undefined);
 
     parsedActionInfo = new ContainerInventoryActionInfo(
       jsonStruct["container_id"] ?? undefined,
