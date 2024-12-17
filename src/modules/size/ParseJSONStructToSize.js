@@ -1,10 +1,10 @@
 import Size from "./Size.js";
 
 /**
- * Parses given JSON struct to Size object,
+ * Parses given JSON struct to size,
  * and fills missing properties with default values
- * @param {object:any} jsonStruct
- * @return {object:Size} Parsed object
+ * @param {object} jsonStruct
+ * @return {Size} Parsed size
  */
 export default function (jsonStruct) {
   let parsedSize;
