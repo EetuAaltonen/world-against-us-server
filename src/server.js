@@ -3,6 +3,10 @@ import "dotenv/config";
 
 import ConsoleHandler from "./modules/console/ConsoleHandler.js";
 import NetworkHandler from "./modules/network/NetworkHandler.js";
+import { initDatabases } from "./modules/database/DatabaseHandler.js";
+
+// Initialize databases
+initDatabases();
 
 const server = Dgram.createSocket("udp4");
 const networkHandler = new NetworkHandler(server);

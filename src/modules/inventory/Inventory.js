@@ -1,6 +1,6 @@
 import ConsoleHandler from "../console/ConsoleHandler.js";
 
-import FormatItemReplicasToJSONObjectArray from "../items/FormatItemReplicasToJSONObjectArray.js";
+import FormatItemsToJSONObjectArray from "../items/FormatItemsToJSONObjectArray.js";
 
 export default class Inventory {
   constructor(inventoryId) {
@@ -9,7 +9,7 @@ export default class Inventory {
   }
 
   toJSONStruct() {
-    const formatItems = FormatItemReplicasToJSONObjectArray(this.items);
+    const formatItems = FormatItemsToJSONObjectArray(this.items);
     return {
       inventory_id: this.inventoryId,
       items: formatItems,

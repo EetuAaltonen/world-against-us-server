@@ -1,7 +1,7 @@
 import InventoryStreamItems from "./InventoryStreamItems.js";
 
 import ParseJSONStructsToArray from "../json/ParseJSONStructsToArray.js";
-import ParseJSONStructToItemReplica from "../items/ParseJSONStructToItemReplica.js";
+import ParseJSONStructToItem from "../items/ParseJSONStructToItem.js";
 
 export default function (jsonStruct) {
   let parsedInventoryStreamItems;
@@ -9,7 +9,7 @@ export default function (jsonStruct) {
     const itemStructArray = jsonStruct["items"] ?? [];
     const parsedItems = ParseJSONStructsToArray(
       itemStructArray,
-      ParseJSONStructToItemReplica
+      ParseJSONStructToItem
     );
 
     parsedInventoryStreamItems = new InventoryStreamItems(
